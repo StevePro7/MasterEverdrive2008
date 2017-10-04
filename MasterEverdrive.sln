@@ -2,10 +2,16 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EverdriveGame", "EverdriveGame\EverdriveGame.vcproj", "{0040B1B6-D3DE-430D-8850-A2DDC86D5918}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3ED5D8D3-1EE9-4670-80BA-FD274A1E713A} = {3ED5D8D3-1EE9-4670-80BA-FD274A1E713A}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EverdriveLibrary", "EverdriveLibrary\EverdriveLibrary.vcproj", "{3ED5D8D3-1EE9-4670-80BA-FD274A1E713A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EverdriveTests", "EverdriveTests\EverdriveTests.vcproj", "{6A1A8F66-B548-44CE-B2B7-4ED569E4796F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3ED5D8D3-1EE9-4670-80BA-FD274A1E713A} = {3ED5D8D3-1EE9-4670-80BA-FD274A1E713A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
