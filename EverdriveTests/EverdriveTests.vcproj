@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)EverdriveLibrary\src&quot;;&quot;$(SolutionDir)deps\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -60,7 +61,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="/ignore:4098"
+				AdditionalDependencies="EverdriveLibrary.lib gtest.lib winmm.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)EverdriveLibrary\bin\$(ConfigurationName)&quot;;&quot;$(SolutionDir)deps\lib\gtest&quot;"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -170,6 +176,30 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\src\AllTests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ConfigManagerTests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\EngineTests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\FileManagerTests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\LogManagerTests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UtilManagerTests.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
