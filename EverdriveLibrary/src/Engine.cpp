@@ -8,17 +8,20 @@ namespace Everdrive
 		logManager.Init();
 		configManager.Init();
 
+		cpuManager.Init();
+		memoryManager.Init();
 		videoManager.Init();
 
-		/*const char* path = "rom/MonacoGP.sms";
-		RomCartridge* cartridge = new RomCartridge;
-		memset(cartridge->m_CartridgeMemory, 0, ONE_MEGA_BYTE);
-		fileManager.InsertCartridge(path, cartridge);*/
+		videoManager.Load();
 
+		// Load ROM into memory.
 		const char* path = "rom/MonacoGP.sms";
 		BYTE* cartridgeMemory = new BYTE[ONE_MEGA_BYTE];
-		memset(cartridgeMemory, 0, ONE_MEGA_BYTE);
-		fileManager.InsertCartridge(path, cartridgeMemory);
+		memset( cartridgeMemory, 0, ONE_MEGA_BYTE );
+		long endPos = 0;
+
+		fileManager.InsertCartridge( path, cartridgeMemory, endPos );
+		memoryManager.Load( cartridgeMemory, endPos );
 		delete cartridgeMemory;
 	}
 
