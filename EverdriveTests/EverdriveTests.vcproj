@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(ProjectDir)bin\$(ConfigurationName)\"
+			IntermediateDirectory="$(ProjectDir)obj\$(ConfigurationName)\"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -62,9 +62,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/ignore:4098"
-				AdditionalDependencies="EverdriveLibrary.lib gtest.lib winmm.lib"
+				AdditionalDependencies="gtestd.lib EverdriveLibrary.lib SDL.lib SDLmain.lib OpenGL32.lib glut32.lib glu32.lib winmm.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)EverdriveLibrary\bin\$(ConfigurationName)&quot;;&quot;$(SolutionDir)deps\lib\gtest&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)deps\lib\gtest&quot;;&quot;$(SolutionDir)EverdriveLibrary\bin\$(ConfigurationName)&quot;;&quot;$(SolutionDir)deps\lib\SDL&quot;;&quot;$(SolutionDir)deps\lib\gl&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -185,6 +185,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\CPUManagerTests.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\EngineTests.cpp"
 				>
 			</File>
@@ -193,11 +197,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\GameManagerTests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\InputManagerTests.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LogManagerTests.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\src\MemoryManagerTests.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\UtilManagerTests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\VideoManagerTests.cpp"
 				>
 			</File>
 		</Filter>
