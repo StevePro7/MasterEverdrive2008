@@ -9,18 +9,23 @@ namespace Everdrive
 	BYTE MemoryManager::ReadMemory( const WORD& address )
 	{
 		bool isCodeMasters = Engine::Instance().GameManager().IsCodeMasters();
-		WORD ramBankAddr = address - 0x8000;		// 32KB
-		BYTE ramBankByte = m_RamBank[ m_CurrentRam ][ ramBankAddr ];
 
-		return ReadMemoryImpl( address, isCodeMasters, m_CartridgeMemory, m_InternalMemory, ramBankByte, m_FirstBankPage, m_SecondBankPage, m_ThirdBankPage );
+		BYTE ramBankByte = 0x00;
+		if( m_CurrentRam > -1 )
+		{
+			WORD ramBankAddr = address - 0x8000;		// 32KB
+			ramBankByte = m_RamBank[ m_CurrentRam ][ ramBankAddr ];
+		}
+
+		return ReadMemoryImpl( address, isCodeMasters, m_CartridgeMemory, m_InternalMemory, ramBankByte, m_FirstBankPage, m_SecondBankPage, m_ThirdBankPage, m_CurrentRam );
 	}
-	BYTE MemoryManager::ReadMemoryImpl( const WORD& address, const bool isCodeMasters, const BYTE* cartridgeMemory, const BYTE* internalMemory, const BYTE& ramBankByte, BYTE firstBankPage, BYTE secondBankPage, BYTE thirdBankPage )
+	BYTE MemoryManager::ReadMemoryImpl( const WORD& address, const bool isCodeMasters, const BYTE* cartridgeMemory, const BYTE* internalMemory, const BYTE& ramBankByte, BYTE firstBankPage, BYTE secondBankPage, BYTE thirdBankPage, int currentRam )
 	{
 		WORD addr = address ;
 
-		if (addr>=0xFFFC)
+		if ( addr >= 0xFFFC )
 		{
-			addr-=0x2000 ;
+			addr -= 0x2000 ;
 		}
 
 		// the fixed memory address
@@ -31,9 +36,34 @@ namespace Everdrive
 		}
 
 		// bank 0
+		else if( addr < 0x4000 )
+		{
+			unsigned int bankaddr = addr + ( 0x4000 * firstBankPage );
+			return cartridgeMemory[bankaddr];
+		}
 		// bank 1
+		else if( addr < 0x8000 )
+		{
+			unsigned int bankaddr = addr + ( 0x4000 * secondBankPage );
+			bankaddr -= 0x4000;
+			return cartridgeMemory[bankaddr];
+		}
 		// bank 2
-		// bank 0
+		else if ( addr < 0xC000 )
+		{
+			// is ram banking mapped in this slot?
+			if ( currentRam > -1 )
+			{
+				return ramBankByte;
+			}
+			else
+			{
+				unsigned int bankaddr = addr + ( 0x4000 * thirdBankPage ) ;
+				bankaddr -= 0x8000 ;
+				return cartridgeMemory[bankaddr] ;
+			}
+		}
+
 		return internalMemory[addr];
 	}
 
@@ -186,6 +216,7 @@ namespace Everdrive
 		// Process address.
 		switch( address )
 		{
+		//   0xFFFC: Memory Control Register
 		case 0xFFFC: 
 			{
 				// check for slot 2 ram banking
@@ -207,14 +238,17 @@ namespace Everdrive
 			}
 			break ;
 
+		//   0xFFFD: Writing a value to this address maps that values page into slot 1
 		case 0xFFFD: 
 			m_FirstBankPage = page ; 
 			break ;
 
+		//   0xFFFE: Writing a value to this address maps that values page into slot 2
 		case 0xFFFE:
 			m_SecondBankPage = page ; 
 			break ;
 
+		//   0xFFFF: Writing a value to this address maps that values page into slot 3
 		case 0xFFFF:
 			{
 				// only allow rom banking in slot 2 if ram is not mapped there!
@@ -237,17 +271,21 @@ namespace Everdrive
 	{
 		switch(address)
 		{
-		case 0x0:
+		// ROM Slot 1
+		case 0x0000:
 			m_FirstBankPage = page ; 
 			break ;
 
+		// ROM Slot 2
 		case 0x4000: 
 			m_SecondBankPage = page ; 
 			break ;
 
+		// ROM Slot 3 / RAM Slot
 		case 0x8000: 
 			m_ThirdBankPage = page ; 
 			break ;
 		}
 	}
+
 }

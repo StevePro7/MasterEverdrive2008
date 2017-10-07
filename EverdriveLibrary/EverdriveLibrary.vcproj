@@ -165,6 +165,14 @@
 				Name="Chips"
 				>
 				<File
+					RelativePath=".\src\Chips\SN79489.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Chips\TMS9918A.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Chips\Z80.cpp"
 					>
 				</File>
@@ -246,6 +254,14 @@
 			<Filter
 				Name="Chips"
 				>
+				<File
+					RelativePath=".\src\Chips\SN79489.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Chips\TMS9918A.h"
+					>
+				</File>
 				<File
 					RelativePath=".\src\Chips\Z80.h"
 					>
