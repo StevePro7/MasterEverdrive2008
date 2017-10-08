@@ -3,37 +3,33 @@
 #include "Engine.h"
 #include <fstream>
 
-using namespace std;
-
 namespace Everdrive
 {
-	void LogConfiguration();
-
 	void ConfigManager::Init()
 	{
-		memset(m_iConfig, 0, sizeof(m_iConfig));
+		memset( m_iConfig, 0, sizeof( m_iConfig ) );
 
 		// Default values.
 
 		// Config values.
 		std::ifstream myfile;
-		myfile.open(CONFIG_FILENAME, std::ifstream::in);
+		myfile.open( CONFIG_FILENAME, std::ifstream::in );
 
 		if (myfile.fail())
 		{
-			myfile.clear(std::ios::failbit);
+			myfile.clear( std::ios::failbit );
 			LogConfiguration();
 			return;
 		}
 
 		// Load configuration.
-		char buffer[256];
+		char buffer[MAX_FILENAME];
 		char cnt = 0;
 
-		while (!myfile.eof())
+		while ( !myfile.eof() )
 		{
-			myfile.getline (buffer,100);
-			m_iConfig[cnt++] = atoi(buffer);
+			myfile.getline( buffer, MAX_FILENAME );
+			m_iConfig[cnt++] = atoi( buffer );
 		}
 
 		myfile.close();
@@ -41,24 +37,22 @@ namespace Everdrive
 
 	void ConfigManager::Load()
 	{
-		m_rom_file = "3Ddity.sms";
-
 		// Config values.
 		std::ifstream myfile;
-		myfile.open(ROMFILE_FILENAME, std::ifstream::in);
+		myfile.open( ROMFILE_FILENAME, std::ifstream::in );
 
-		if (myfile.fail())
+		if ( myfile.fail() )
 		{
-			myfile.clear(std::ios::failbit);
+			myfile.clear( std::ios::failbit );
 			return;
 		}
 
 		// Load configuration.
-		char buffer[256];
-		while (!myfile.eof())
+		char buffer[MAX_FILENAME];
+		while ( !myfile.eof() )
 		{
-			myfile.getline (buffer,100);
-			m_rom_file = buffer;
+			myfile.getline( buffer, MAX_FILENAME );
+			memcpy( m_rom_file, buffer, MAX_FILENAME );
 		}
 
 		myfile.close();

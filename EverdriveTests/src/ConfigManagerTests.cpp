@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 #include "Managers/ConfigManager.h"
 #include "Engine.h"
-#include <string>
 
 using namespace std;
 using namespace testing;
@@ -13,12 +12,14 @@ protected:
 	ConfigManager configManager;
 };
 
-//TEST_F( ConfigManagerTests, Load )
+//TEST_F( ConfigManagerTests, Init )
 //{
-//	configManager.Load();
-//	string romFile = configManager.GetRomFile();
-//
-//	Engine::Instance().LogManager().Init();
-//	Engine::Instance().LogManager().Write(romFile.c_str());
-//	Engine::Instance().LogManager().Quit();
 //}
+
+TEST_F( ConfigManagerTests, Load )
+{
+	configManager.Load();
+	configManager.GetRomFile();
+	//char* romFile = configManager.GetRomFile();
+	//printf( "%s", romFile );
+}
